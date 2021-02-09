@@ -19,6 +19,7 @@ ATTR_GRID_COUNTRY = "grid_country"
 ATTR_DAILY_YIELD = "daily_yield"
 ATTR_TOTAL_YIELD = "total_yield"
 ATTR_DAY_POWER_PEAK = "day_active_power_peak"
+ATTR_ACTIVE_POWER = "active_power"
 ATTR_REACTIVE_POWER = "reactive_power"
 ATTR_POWER_FACTOR = "power_factor"
 ATTR_EFFICIENCY = "efficiency"
@@ -140,6 +141,7 @@ class HuaweiSolarSensor(Entity):
             ATTR_PHASE_B_CURRENT: self._phase_B_current,
             ATTR_PHASE_C_CURRENT: self._phase_C_current,
             ATTR_DAY_POWER_PEAK: self._day_active_power_peak,
+            ATTR_ACTIVE_POWER: self._active_power,
             ATTR_REACTIVE_POWER: self._reactive_power,
             ATTR_POWER_FACTOR: self._power_factor,
             ATTR_EFFICIENCY: self._efficiency,
@@ -182,6 +184,7 @@ class HuaweiSolarSensor(Entity):
 
     def update(self):
         self._state = self._inverter.get("active_power").value
+        self._active_power = self._state
         self._daily_yield = self._inverter.get("daily_yield_energy").value
         self._total_yield = self._inverter.get("accumulated_yield_energy").value
         self._reactive_power = self._inverter.get("reactive_power").value
